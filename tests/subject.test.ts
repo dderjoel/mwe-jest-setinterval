@@ -17,7 +17,7 @@ describe("subject test suite", () => {
     const spyExit = jest.spyOn(process, "exit").mockImplementation(((
       nu: number
     ) => {
-      expect(nu).toEqual(1);
+      expect(nu).toEqual(0); // does not matter because it is not checked anyway
       spyExit.mockRestore();
       done();
     }) as any);
