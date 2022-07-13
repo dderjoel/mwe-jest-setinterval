@@ -6,7 +6,7 @@ npm install
 npm test
 ```
 
-As stated in the Stackoverflow question:
+As stated in the [Stackoverflow question](https://stackoverflow.com/questions/70165786/jest-test-call-to-process-exit-in-endless-setinterval-0-using-singletons):
 Jest will then complain that logs were attempted after the test.
 
 ## Why SetInterval?
