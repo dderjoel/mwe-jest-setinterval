@@ -1,7 +1,7 @@
 ## Reproduce
 ```
-git clone https://github.com/dderjoel/jest-setinterval
-cd jest-setinterval
+git clone https://github.com/dderjoel/mwe-jest-setinterval
+cd mwe-jest-setinterval
 npm install
 npm test
 ```
