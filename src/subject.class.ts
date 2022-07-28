@@ -5,12 +5,13 @@ export default class Subject {
   private counter = 0;
   public doWork(inputdata: string): void {
     if (!inputdata) {
-      process.exit(100); // exit if no input was given
+      return process.exit(100);
     }
-    setInterval(() => {
+    const a = setInterval(() => {
       this.counter++;
-      if (this.counter > 10e2) {
-        process.exit(0);
+      if (this.counter > Math.pow(3, inputdata.length)) {
+        clearInterval(a);
+        return process.exit(inputdata.length);
       }
       if (this.counter % 10e1 == 0) {
         console.log(this.counter);

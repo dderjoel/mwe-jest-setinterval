@@ -1,27 +1,34 @@
 import Subject from "../src/subject.class";
 
 describe("subject test suite", () => {
-  jest.spyOn(console, "log").mockImplementation();
-  it("should exit on invalid input", (done) => {
-    const spyExit = jest.spyOn(process, "exit").mockImplementation(((
-      nu: number
-    ) => {
-      expect(nu).toEqual(100);
-      spyExit.mockRestore();
-      done();
-    }) as any);
+  let logSpy: jest.SpyInstance;
 
-    expect(() => new Subject().doWork("")).not.toThrow();
+  beforeAll(() => {
+    logSpy = jest.spyOn(console, "log").mockImplementation();
   });
-  it.skip("should work on valid input", (done) => {
-    const spyExit = jest.spyOn(process, "exit").mockImplementation(((
-      nu: number
-    ) => {
-      expect(nu).toEqual(0); // does not matter because it is not checked anyway
-      spyExit.mockRestore();
+
+  it("should exit on invalid input", (done) => {
+    jest.useFakeTimers();
+    jest.spyOn(process, "exit").mockImplementation(((nu: number) => {
+      expect(nu).toEqual(100);
       done();
     }) as any);
+    new Subject().doWork("");
+    jest.runAllTimers();
+  });
 
-    expect(() => new Subject().doWork("valid")).not.toThrow();
+  ["many", "different", "valid", "inputs"].forEach((input) => {
+    it("should run on valid input", (done) => {
+      jest.useFakeTimers();
+      jest.spyOn(process, "exit").mockImplementation(((nu: number) => {
+        expect(nu).toEqual(input.length);
+        done();
+      }) as any);
+      new Subject().doWork(input);
+      jest.runAllTimers();
+    });
+  });
+  afterAll(() => {
+    logSpy.mockRestore();
   });
 });
